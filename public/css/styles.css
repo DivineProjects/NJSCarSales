@@ -1,3 +1,10 @@
+:root {
+  --background-color: #1E3A5F;  
+  --text-color: whitesmoke;       
+  --accent-one: #C0C0C0;    
+  --accent-red: #D72638;     
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -6,7 +13,7 @@
 
 body {
   font-family: 'Roboto', 'Cherry Swash', 'serif', sans-serif;
-  color: whitesmoke;
+  color: var(--text-color);
   display: grid;
   background-image: url('../images/site/small_check.png');
   background-size: cover; 
@@ -15,17 +22,26 @@ body {
   min-height: 100dvh;
 } 
 
+/* Accessibility and Usability */
+a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
 #wrapper {
   border: 2px solid whitesmoke;
   margin: 1rem 2rem;
-  background-color: rgb(2, 51, 81);
+  background-color: var(--background-color);
+  color: var(--text-color);
   padding: 0.5rem; 
 }
 
 /* Header CSS */
+  
 #top-header {
   display: flex;
   justify-content: space-between;
+  color: var(--text-color);
   align-items: center;
   width: 100%;
   padding: 1rem;
@@ -35,7 +51,7 @@ body {
 .siteName {
   font-size: 1.4rem;
   font-weight: bold;
-  color: whitesmoke;
+  color: var(--text-color);
 }
 
 #tools {
@@ -44,17 +60,16 @@ body {
 }
 header a {
   display: block;
-  text-decoration: none;
   text-align: center;
   padding: 1rem;
-  color: whitesmoke;
+  color: var(--text-color);
 }
 
 /* Navigation CSS */
 nav {
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.5);
-  border-bottom: 1px solid rgb(0, 0, 0);
+  /* border-bottom: 1px solid rgb(0, 0, 0); */
 }
 nav ul {
   display: flex;
@@ -67,14 +82,102 @@ nav ul li {
   display: block;
   padding: 1rem;
   text-align: center;
+  color:var(--text-color)
 }
 nav ul li:hover {
   border-bottom: 2px  solid rgb(250, 250, 0);
   transform: scale(1.1);
 }
 
+nav ul li a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 main {
   padding: 1rem;
+}
+
+
+/* Vehicle Grid Container */
+.vehicle-grid {
+  display: flex;
+  flex-direction: column; /* Default: Stack items for small screens */
+  background: rgba(0, 0, 6, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 900px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Vehicle Image */
+.vehicle-image {
+  text-align: center;
+}
+
+.vehicle-image img {
+  width: 100%;
+  height: auto;
+  max-width: 450px;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Vehicle Details */
+.vehicle-details {
+  padding: 15px;
+}
+
+.vehicle-details p {
+  margin: 8px 0;
+  font-size: 1rem;
+}
+
+.vehicle-details strong {
+  color: var(--text-color);
+}
+
+/* home page  */
+#inv-display ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+#inv-display li {
+  display: block;
+  padding: 1rem;
+  text-align: center;
+  color:var(--text-color);
+  list-style: none;
+}
+
+#inv-display img {
+  width: 100%;
+  height: auto;
+  max-width: 450px;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+.namePrice {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+  color:var(--text-color);
 }
 
 /* Footer Styles */
@@ -85,7 +188,7 @@ footer {
   margin-top: 1rem;
   padding: 1rem;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 footer p {
   margin: 5px 0;
@@ -99,6 +202,7 @@ footer p {
   background-image: url('../images/site/checkerboard.jpg');
   background-repeat: repeat; 
   }
+  
   nav ul {
       flex-direction: row;
   }
@@ -107,9 +211,52 @@ footer p {
       flex: 1 1 100%;
   }
 
- 
+    /* home page  */
 
-  
+  #inv-display li {
+    display: flex;
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid var(--accent-one);
+  }
+
+  .namePrice {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .namePrice h2{
+    grid-column: 1 / 2 ;
+    width: 400px;
+  }
+
+  .namePrice hr{
+    display: none ;
+  }
+
+  .vehicle-grid {
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+  }
+
+  .vehicle-image {
+      flex: 1;
+      text-align: left;
+  }
+
+  .vehicle-image img {
+      max-width: 100%;
+  }
+
+  .vehicle-details {
+      flex: 2;
+  }
 }
 
 
+@media (prefers-reduced-motion: reduce) {
+  * {
+      transition: none !important;
+  }
+}
