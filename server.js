@@ -5,33 +5,34 @@
 /* ***********************
  * Require Statements
  *************************/
+const expressLayouts = require("express-ejs-layouts")
 const express = require("express")
 const env = require("dotenv").config()
 const app = express()
-const static = require("./routes/static")
-const expressLayouts = require("express-ejs-layouts")
+const static = require("./routes/static") // contains routes directory to css, js and images 
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
+const errorController = require("./controllers/errorController")
 const utilities = require("./utilities")
 
 /* ***********************
- * View Engine and Templates
+ * View Egine and Templates
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 
+
 /* ***********************
  * Routes
  *************************/
 app.use(static)
-
-/* ***********************
- * Index Route
- *************************/
+// index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
-// Inventory routes
-app.use("/inv", inventoryRoute)
+// inventory routes
+app.use("/inv", utilities.handleErrors(inventoryRoute))
+// route that triggers the 500 error
+app.use('/trigger-error', utilities.intentionalErrors(errorController));
 
 
 // File Not Found Route - must be last route in list
@@ -55,6 +56,7 @@ app.use(async (err, req, res, next) => {
     nav
   })
 })
+
 
 /* ***********************
  * Local Server Information
