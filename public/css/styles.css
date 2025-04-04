@@ -5,7 +5,7 @@
 
   --deep-blue: #003366; /* Primary color - trust and reliability */
   --gold: #ffd700; /* Accent color - luxury and wealth */
-  --white: #ffffff; /* Background and text contrast */
+  --white: white; /* Background and text contrast */
   --accent-one: #b87333; /* Copper - warm accent */
   --accent-two: #708090; /* Slate Gray - cool accent */
   --accent-three: #333;
@@ -15,7 +15,7 @@
   --bg-header-color: var(--deep-blue); /* Header background color */
 
   /* Text Colors */
-  --text-color: var(--accent-three); /* Primary text color */
+  --text-color: var(--white); /* Primary text color */
   --primary-text-color: var(--gold); /* Color for headings */
   --secondary-text-color: var(--white); /* Color for secondary text */
   --tertiary-text-color: var(--gold); /* Color for links and accents */
@@ -23,7 +23,7 @@
   /* Button Colors */
   --btn-color: var(--gold); /* Button background color */
   --hover-color: var(--white); /* Button hover color */
-  --link-color: var(--gold); /* Link color */
+  --link-color: var(--white); /* Link color */
 
   /* font sizes */
   --font-size-base: 1rem;
@@ -56,12 +56,13 @@ body{
 }
 
 #wrapper {
-  background-color: var(--bg-color);
+  background-color: var(--deep-blue);
   padding: 1rem;
   min-height: 100vh;
 }
 a {
   text-decoration: none;
+  color: var(--link-color);
 }
 
 /* headers.js */
@@ -91,7 +92,7 @@ header {
 .... Start NAVIGATION bar*/
 nav {
   background-color: rgba(0, 0, 0, 0.8);
-  padding: 1.5% 1%;
+  padding: 0;
   color: var(--secondary-text-color);
 }
 nav ul {
@@ -101,10 +102,18 @@ nav ul {
 }
 nav li {
   display: inline-block;
+  width: 100%;
   cursor: pointer;
+  text-align: center;
+  margin: 1.5% 2%;
+  padding: 1% 0;
 }
 nav li:hover{
   transform: scale(1.1);
+  border-bottom: 2px solid var(--primary-text-color);
+  color: var(--gold);
+  transition: all 0.3s ease;
+
 }
 
 /* end navigation
@@ -266,8 +275,7 @@ main {
 /* Vehicle price styling */
 .namePrice span {
   font-size: 1.4em;
-  font-weight: bold;
-  /* color: #28a745; */
+  font-weight:lighter;
   display: block;
   margin-top: 5px;
 }
