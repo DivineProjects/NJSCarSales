@@ -141,6 +141,7 @@ main {
   background: rgba(0, 0, 0, 0.2);
   font-size: var(--font-size-base);
   text-align: left;
+  color: var(--deep-blue);
 }
 #heroMessage span {
   font-weight: 600;
