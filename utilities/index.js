@@ -5,7 +5,7 @@ const Util = {}
     Construct the nav HTML undered list
     **************** */
 Util.getNav = async function (req, res, next) {
-    let data = await invModel.getClassications()
+    let data = await invModel.getClassification()
     let list = "<ul>"
     list += '<li><a href="/" title="Home page">Home</a></li>'
     data.rows.forEach((row)=> {
@@ -87,6 +87,32 @@ Util.buildInventorySingleGrid = async function (data) {
   
   return grid
 }
+
+/* *****************************************
+ * Build Classification list for inventory add ejs
+*/
+Util.buildClassificationList = async function (classification_id = null) {
+  let data = await invModel.getClassification()
+  console.log(data)
+
+  console.log("inside buildClassificationList")
+  let classificationList =
+    '<select class="formSelect customSelect" name="classification_id" id="classificationList" required>'
+  classificationList += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected "
+    }
+    classificationList += ">" + row.classification_name + "</option>"
+  })
+  classificationList += "</select>"
+  return classificationList
+}
+
 
 /* ****************************************
  * Middleware For Handling Errors
