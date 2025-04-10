@@ -284,13 +284,7 @@ main {
   margin-top: 5px;
 }
 
-/* Styling for the "no matching vehicles" message */
-.notice {
-  font-size: 1.2em;
-  color: rgba(0, 0, 0, 0.8);
-  text-align: center;
-  padding: 20px;
-}
+
 
 /* Grid Container for the vehicle image and details */
 .vehicle-grid {
@@ -358,6 +352,18 @@ main {
   margin: 5px;
   background-color: rgba(0, 0, 0, 0.2);
  }
+.success {
+    color: var(--accent-success);
+    font-style: italic;
+    font-size: medium;
+    text-align: left;
+}
+.success li{
+    list-style: none;
+    padding: 5px;
+    margin: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
 
  
 /* LOGIN FORM  VIEW*/
@@ -503,6 +509,32 @@ form input.submitBtn {
   max-width: 20rem;
   cursor: pointer;
 }
+
+
+/* inventory */
+.inv-management li {
+  display: block;
+  text-align: center;
+  height: 40px;
+  padding: 1rem;
+  margin: 1rem;
+  color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid whitesmoke ;
+}
+
+.inv-management a{
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.inv-management li:hover{
+  background-color: green;
+}
+#classificationList {
+  color: var(--accent-three);
+}
+
 
 
 @media (min-width: 780px){
