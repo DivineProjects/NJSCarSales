@@ -7,6 +7,21 @@ async function getClassification() {
     return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")   
 }
 
+/* **********************
+ *   Check if Classification Exists
+ * ********************* */
+async function checkExistingClassification(classification_name){
+  try {
+    // console.log("inside models,")
+    // console.log(classification_name)
+    const sql = "SELECT * FROM classification WHERE classification_name = $1"
+    const class_name = await pool.query(sql, [classification_name])
+    return class_name.rowCount
+  } catch (error) {
+    return error.message
+  }
+}
+
 /* ***************************
  *  Get all inventory items and classification_name by classification_id
  * ************************** */
@@ -67,4 +82,4 @@ async function addInventoryData(inv_make, inv_model, inv_year, inv_description, 
     return error.message
   }
 }
-module.exports = { getClassification, getInventoryByClassificationId, getInventoryByInvId, addClassification, addInventoryData }
+module.exports = { getClassification, getInventoryByClassificationId, getInventoryByInvId, addClassification, addInventoryData, checkExistingClassification }
