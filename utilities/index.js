@@ -93,9 +93,7 @@ Util.buildInventorySingleGrid = async function (data) {
 */
 Util.buildClassificationList = async function (classification_id = null) {
   let data = await invModel.getClassification()
-  console.log(data)
-
-  console.log("inside buildClassificationList")
+  
   let classificationList =
     '<select class="formSelect customSelect" name="classification_id" id="classificationList" required>'
   classificationList += "<option value=''>Choose a Classification</option>"
