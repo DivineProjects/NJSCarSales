@@ -531,10 +531,77 @@ form input.submitBtn {
 .inv-management li:hover{
   background-color: green;
 }
-#classificationList {
-  color: var(--accent-three);
+
+.invTableDisplay{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  max-width: 400px; /*Set maximum width */ 
+  margin: 1rem auto; /* Center horizontally */
+  padding: 0.5rem 0.5rem; /* Reduce padding for smaller screens */
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
 }
 
+#classificationList {
+  color: var(--accent-three);
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin-top: 1rem;
+  /* border: 1px solid #ccc; */
+  border-radius: 4px;
+}
+
+
+/* Inventory Display Table */
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  /* background-color: #fff; */
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+#inventoryDisplay th,
+#inventoryDisplay td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#inventoryDisplay th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* #inventoryDisplay tr:hover {
+  background-color: #f9f9f9;
+} */
+
+/* Base link styles within the inventory display table */
+#inventoryDisplay a {
+  /* color: #007BFF;  */
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover state for links */
+#inventoryDisplay a:hover {
+  background-color: #e2e6ea;
+  color: #0056b3;
+  /* text-decoration: underline; */
+}
 
 
 @media (min-width: 780px){
@@ -574,6 +641,10 @@ form input.submitBtn {
     font-size: 14px;
   }
 }
+
+
+
+
 
 @media (max-width: 480px) {
   h1 {
