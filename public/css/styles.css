@@ -531,12 +531,185 @@ form input.submitBtn {
 .inv-management li:hover{
   background-color: green;
 }
+
+.invTableDisplay{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  max-width: 400px; /*Set maximum width */ 
+  margin: 1rem auto; /* Center horizontally */
+  padding: 0.5rem 0.5rem; /* Reduce padding for smaller screens */
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
 #classificationList {
   color: var(--accent-three);
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin-top: 1rem;
+  /* border: 1px solid #ccc; */
+  border-radius: 4px;
 }
 
 
+/* Inventory Display Table */
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  /* background-color: #fff; */
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+}
 
+#inventoryDisplay th,
+#inventoryDisplay td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#inventoryDisplay th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* #inventoryDisplay tr:hover {
+  background-color: #f9f9f9;
+} */
+
+/* Base link styles within the inventory display table */
+#inventoryDisplay a {
+  /* color: #007BFF;  */
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover state for links */
+#inventoryDisplay a:hover {
+  background-color: #e2e6ea;
+  color: #0056b3;
+  /* text-decoration: underline; */
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-order {
+  background-color: #2563eb; /* Blue-600 */
+  color: white;
+  border: 2px solid #2563eb;
+  margin-top: 1rem;
+}
+
+.btn-order:hover {
+  background-color: #1d4ed8; /* Blue-700 */
+  border-color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-order:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+}
+
+.btn-order:active {
+  transform: translateY(0);
+  background-color: #1e40af; /* Blue-800 */
+}
+
+
+/* Order view*/
+.order-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.vehicle-details {
+  margin-bottom: 20px;
+  padding: 15px;
+  /* background: #fff; */
+  border-radius: 4px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.btn-order {
+  background: #0066cc;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.notice {
+  color: #d9534f;
+  text-align: center;
+}
+
+.order-success {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 2rem;
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  background-color: #f0fff4;
+  color: #2e7d32;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-success h2 {
+  color: #388e3c;
+  margin-bottom: 1rem;
+}
+
+.order-success p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
 @media (min-width: 780px){
   .information {
       display: grid;
@@ -574,6 +747,10 @@ form input.submitBtn {
     font-size: 14px;
   }
 }
+
+
+
+
 
 @media (max-width: 480px) {
   h1 {

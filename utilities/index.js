@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
+
 const invModel = require("../models/inventory-model")
 const Util = {}
 
@@ -48,7 +51,9 @@ Util.buildClassificationGrid = async function(data){
         grid += '<span>$' 
         + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
         grid += '</div>'
+        grid += `<a href="/order/${vehicle.inv_id}" class="btn btn-order">Place Your Order</a>`
         grid += '</li>'
+        
       })
       grid += '</ul>'
     } else { 
@@ -61,23 +66,22 @@ Util.buildInventorySingleGrid = async function (data) {
   let grid
   try {
     if (data && Object.keys(data).length> 0) {
-      grid = `
-              <div class="vehicle-grid">
-                <div class="vehicle-image">
-                  <a href="../../inv/detail/${data.inv_id}" 
-                    title="View ${data.inv_make} ${data.inv_model} details">
-                    <img src="${data.inv_thumbnail}" 
-                        alt="Image of ${data.inv_make} ${data.inv_model} on CSE Motors" />
-                  </a>
-                </div>
-                <section class="vehicle-details">
-                  <h2>Vehicle Details</h2>
-                  <p><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(Number(data.inv_price))}</p>
-                  <p><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(data.inv_miles)}</p>
-                  <p><strong>Description:</strong> ${data.inv_description}</p>
-                </section>
-              </div>
-            `
+      const grid = `
+        <div class="vehicle-grid">
+          <div class="vehicle-image">
+            <a href="/inv/detail/${data.inv_id}" title="View ${data.inv_make} ${data.inv_model} details">
+              <img src="${data.inv_thumbnail}" alt="Image of ${data.inv_make} ${data.inv_model} on CSE Motors" loading="lazy">
+            </a>
+          </div>
+          <section class="vehicle-details">
+            <h2>Vehicle Details</h2>
+            <p><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(Number(data.inv_price))}</p>
+            <p><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(data.inv_miles)} miles</p>
+            <p><strong>Description:</strong> ${data.inv_description}</p>
+            <a href="/order/${data.inv_id}" class="btn btn-order">Place Your Order</a>
+          </section>
+        </div>
+      `;
     } else {
       grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
@@ -87,6 +91,54 @@ Util.buildInventorySingleGrid = async function (data) {
   
   return grid
 }
+
+/* *****************************************
+ * Build Order for inventory
+*/ 
+
+Util.buildOrder = async function (data) {
+  let form
+  
+  if (data && Object.keys(data).length > 0) { 
+    form = `
+      <form method="POST" action="/order" class="order-form">
+        <input type="hidden" name="inv_id" value="${data.inv_id || ''}" />
+        <input type="hidden" name="account_id" value="${data.account_id || 2}" />
+        
+        <div class="vehicle-details">
+          <h2>Order Details</h2>
+          <p><strong>Make:</strong> ${data.inv_make || 'N/A'}</p>
+          <p><strong>Model:</strong> ${data.inv_model || 'N/A'}</p>
+          <p><strong>Year:</strong> ${data.inv_year || 'N/A'}</p>
+          <p><strong>Price:</strong> $${data.inv_price ? new Intl.NumberFormat('en-US').format(data.inv_price) : 'N/A'}</p>
+        </div>
+        
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input 
+            type="number" 
+            id="quantity"
+            name="quantity" 
+            min="1" 
+            max="10"
+            value="${data.quantity || 1}" 
+            required
+          />
+        </div>
+        
+
+        
+        <button type="submit" class="btn btn-order">Place Order</button>
+      </form>`
+  } else {
+    form = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  
+  return form
+}
+
+
+
 
 /* *****************************************
  * Build Classification list for inventory add ejs
@@ -111,6 +163,81 @@ Util.buildClassificationList = async function (classification_id = null) {
   return classificationList
 }
 
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+   jwt.verify(
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    function (err, accountData) {
+     if (err) {
+      req.flash("Please log in")
+      res.clearCookie("jwt")
+      return res.redirect("/account/login")
+     }
+     res.locals.accountData = accountData
+     res.locals.loggedin = 1
+     next()
+    })
+  } else {
+   next()
+  }
+ }
+
+ 
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
+
+
+/* ****************************************
+ *  Order
+ * ************************************ */
+ Util.buildInventorySingleGrid = async function (data) {
+  let grid
+  try {
+    if (data && Object.keys(data).length> 0) {
+      grid = `
+              <div class="vehicle-grid">
+                <div class="vehicle-image">
+                  <a href="../../inv/detail/${data.inv_id}" 
+                    title="View ${data.inv_make} ${data.inv_model} details">
+                    <img src="${data.inv_thumbnail}" 
+                        alt="Image of ${data.inv_make} ${data.inv_model} on CSE Motors" />
+                  </a>
+                </div>
+                <section class="vehicle-details">
+                  <h2>Vehicle Details</h2>
+                  <p><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(Number(data.inv_price))}</p>
+                  <p><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(data.inv_miles)}</p>
+                  <p><strong>Description:</strong> ${data.inv_description}</p>
+                  
+                  <form method="GET" action="/order/${data.inv_id}">
+                    <input type="hidden" name="inv_id" value="${data.inv_id}" />
+                    <button type="submit" class="btn btn-order">Place Your Order</button>
+                  </form>
+                </section>
+              </div>
+            `
+    } else {
+      grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    }
+  } catch (error) {
+    grid = '<p class="notice">An error occurred while loading vehicle details. Please try again later.</p>'
+  }
+  
+  return grid
+}
 
 /* ****************************************
  * Middleware For Handling Errors

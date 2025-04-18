@@ -154,7 +154,89 @@ validate.checkInventoryData = async (req, res, next) => {
 }
 
 
+/* ******************************
+ * Check data and return errors or continue to Update Inventory Item
+  Error will be redirected to Edit view
+ * ***************************** */
+validate.checkUpdateData = async (req, res, next) => {
+  const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id, inv_id } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    const classificationSelect = await utilities.buildClassificationList(classification_id)
+    
+    res.render("inventory/edit-inventory", {
+      errors,
+      title: `Edit ${inv_make} ${inv_model}`,
+      nav,
+      classificationSelect: classificationSelect,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,
+      inv_id
+    })
+    return
+  }
+  next()
+}
 
 
+/*  **********************************
+  *  Delete Inventry Item Validation Rules
+  * ********************************* */
+validate.deleteInventoryDataRules = () => {
+  return [
+    body('inv_id')
+      .isInt({ min: 0 })
+      .withMessage('Please provide a valid inventory ID.')
+  ];
+};
+
+
+/* ******************************
+ * Check data and return errors or continue to Delete Inventory Item
+  Error will be redirected to Confirm Delete  view
+ * ***************************** */
+  validate.checkDeleteData = async (req, res, next) => {
+    const { inv_id } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      let nav = await utilities.getNav()
+      // Attempt to fetch inventory data if inv_id is a valid integer
+    if (!isNaN(inv_id)) {
+      inventory = await inventoryModel.getInventoryByInvId(inv_id);
+    }
+
+    // Prepare variables with default values in case inventory is not found
+    const inv_make = inventory?.inv_make || '';
+    const inv_model = inventory?.inv_model || '';
+    const inv_price = inventory?.inv_price || '';
+    const inv_year = inventory?.inv_year || '';
+    const itemName = `${inv_make} ${inv_model}`.trim();
+
+    res.render("inventory/delete-confirm", {
+      errors,
+      nav,
+      title: "Confirm Delete " + itemName,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_price
+    })
+      return
+    }
+    next()
+  }
+  
 
 module.exports = validate
