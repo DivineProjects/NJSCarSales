@@ -21,44 +21,45 @@ const showOrderForm = async (req, res) => {
       })
   };
 
-
-
   const placeOrder = async (req, res) => {
-  
     const { account_id, inv_id, quantity } = req.body;
     const parsedQty = parseInt(quantity, 10);
   
     try {
-      if (!parsedQty || parsedQty <= 0) {
-        throw new Error('Invalid quantity');
-      }
+      // Validate input
+      if (!parsedQty || parsedQty <= 0) throw new Error('Invalid quantity');
   
-      // Get vehicle details
+      // Get vehicle details to calculate total price
       const vehicle = await invModel.getInventoryByInvId(inv_id);
       if (!vehicle) {
         throw new Error('Vehicle not found');
       }
   
-      // Calculate total
-      const totalPrice = parsedQty * vehicle.inv_price;
+      // Calculate total price
+      const total_price = parsedQty * vehicle.inv_price;
+      const order_date = new Date().toISOString(); // Current timestamp
   
-      // Create order
-      const order = await OrderModel.createOrder(account_id, inv_id, parsedQty, totalPrice);
-      
-      // Render success page
-      res.render('order/order-success', { 
+      // Create order - matches model's expected parameters
+      const order = await OrderModel.createOrder(
+        parseInt(account_id, 10),  // account_id
+        parseInt(inv_id, 10),      // inv_id
+        parsedQty,                 // quantity
+        total_price                // total_price
+      );
+  
+      res.render('order/order-success', {
         order,
         title: 'Order Confirmation',
         nav: await utilities.getNav()
       });
-      
+  
     } catch (err) {
       console.error('Order error:', err);
       
-      // Get vehicle data again for the form
       const vehicle = await invModel.getInventoryByInvId(inv_id);
       const form = await utilities.buildOrder({
         ...vehicle,
+        ...req.body,
         quantity: parsedQty,
         error: err.message
       });

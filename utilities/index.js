@@ -104,6 +104,8 @@ Util.buildOrder = async function (data) {
       <form method="POST" action="/order" class="order-form">
         <input type="hidden" name="inv_id" value="${data.inv_id || ''}" />
         <input type="hidden" name="account_id" value="${data.account_id || 2}" />
+        <input type="hidden" name="unit_price" value="${data.inv_price}" />
+        <input type="hidden" name="order_date" value="${new Date().toISOString().split('T')[0]}" />
         
         <div class="vehicle-details">
           <h2>Order Details</h2>

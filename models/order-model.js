@@ -13,15 +13,19 @@ const getVehicleById = async (invId) => {
 };
 
 
-const createOrder = async (accountId, invId, quantity, totalPrice) => {
-  const query = `
-    INSERT INTO orders (account_id, inv_id, quantity, total_price)
-    VALUES ($1, $2, $3, $4)
-    RETURNING *;
-  `;
-  const result = await pool.query(query, [accountId, invId, quantity, totalPrice]);
-  return result.rows[0];
-};
+const createOrder = async(account_id, inv_id, quantity, total_price ) => {
+  try {
+    const sql = `INSERT INTO orders 
+      (account_id, inv_id, quantity, total_price) 
+      VALUES ($1, $2, $3, $4) 
+      RETURNING *`;
+    return await pool.query(sql, [
+      account_id, inv_id, quantity, total_price
+    ]);
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = {
   getInventoryList,
