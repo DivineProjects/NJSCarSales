@@ -22,32 +22,9 @@ const showOrderForm = async (req, res) => {
   };
 
 
-// const placeOrder = async (req, res) => {
-//   console.log('placeOrder called') 
-//   console.log(req.body)
-//     const { account_id, inv_id, quantity } = req.body;
-//     const parsedQty = parseInt(quantity, 10);
-  
-//     try {
-//       if (!parsedQty || parsedQty <= 0) throw new Error('Invalid quantity');
-  
-//       const vehicle = await OrderModel.getVehicleById(inv_id);
-//       const totalPrice = parsedQty * vehicle.inv_price;
-  
-//       const order = await OrderModel.createOrder(account_id, inv_id, parsedQty, totalPrice);
-//       res.render('order/order-success', { order });
-//     } catch (err) {
-//       const inventory = await OrderModel.getInventoryList();
-//       const formData = { account_id, inv_id, quantity };
-//       res.render('order/order-form', { inventory, error: err.message, formData });
-//     }
-//   }
-
 
   const placeOrder = async (req, res) => {
-    console.log('placeOrder called') 
-    console.log(req.body)
-    
+  
     const { account_id, inv_id, quantity } = req.body;
     const parsedQty = parseInt(quantity, 10);
   
