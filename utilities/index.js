@@ -78,6 +78,11 @@ Util.buildInventorySingleGrid = async function (data) {
                   <p><strong>Price:</strong> $${new Intl.NumberFormat('en-US').format(Number(data.inv_price))}</p>
                   <p><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(data.inv_miles)}</p>
                   <p><strong>Description:</strong> ${data.inv_description}</p>
+                  
+                  <form method="GET" action="/order/${data.inv_id}">
+                    <input type="hidden" name="inv_id" value="${data.inv_id}" />
+                    <button type="submit" class="btn btn-order">Place Your Order</button>
+                  </form>
                 </section>
               </div>
             `
