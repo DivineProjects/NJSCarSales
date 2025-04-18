@@ -15,27 +15,4 @@
  </ul>
 <% } %>
 
-<form method="POST" action="/order">
-    <input type="hidden" name="account_id" value="<%= formData.account_id || 1 %>" />
-  
-    <label>Choose Vehicle:</label>
-    <select name="inv_id">
-      <% inventory.forEach(item => { %>
-        <option value="<%= item.inv_id %>" 
-          <% if (formData.inv_id == item.inv_id) { %> selected <% } %>>
-          <%= item.inv_make %> <%= item.inv_model %> ($<%= item.inv_price %>)
-        </option>
-      <% }); %>
-    </select><br>
-  
-    <label>Quantity:</label>
-    <input 
-      type="number" 
-      name="quantity" 
-      min="1" 
-      value="<%= formData.quantity || '' %>" 
-      required 
-    /><br>
-  
-    <button type="submit">Place Order</button>
-  </form>
+<%- form %>
