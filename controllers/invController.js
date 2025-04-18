@@ -30,7 +30,7 @@ invCont.buildByInvId = async function (req, res, next) {
   const data = await invModel.getInventoryByInvId(inv_id)
   const grid = await utilities.buildInventorySingleGrid(data)
   let nav = await utilities.getNav()
-  let vehicleName = "";
+  let vehicleName = ""
   if (data) {
     vehicleName = `${data.inv_make} ${data.inv_model} (${data.inv_year})`
   } 
