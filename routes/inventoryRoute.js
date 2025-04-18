@@ -40,4 +40,11 @@ router.post(
 // router to build edit-inventory
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
+// router to delete inventory
+router.get("/delete/:inv_id", utilities.handleErrors(invController.showDeleteConfirmation))
+router.post("/delete", 
+    invValidate.deleteInventoryDataRules(),
+    invValidate.checkDeleteData,
+    utilities.handleErrors(invController.deleteInventory))
+
 module.exports = router;
