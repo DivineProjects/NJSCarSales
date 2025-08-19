@@ -1,10 +1,11 @@
 <h2>Place Your Order</h2>
 
 <% if (title) { %>
-    <h1><%= title %></h1>
-    <% } else {
-      res.redirect('/')
-    } %>
+  <h1><%= title %></h1>
+<% } else { %>
+  <h1>Vehicle Details</h1>
+<% } %>
+
 
 <%- messages() %>
 <% if (errors) { %>

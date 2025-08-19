@@ -51,9 +51,11 @@ const placeOrder = async (req, res) => {
       total_price
     );
 
-    res.render("order/order-success", {
-      order,
-      title: "Order Confirmation",
+    const orders = await OrderModel.getOrdersByAccountId(account_id);
+
+    res.render("order/order-history", {
+      orders,
+      title: "Order History",
       nav: await utilities.getNav(),
     });
   } catch (err) {
@@ -90,8 +92,8 @@ const showOrderHistory = async (req, res) => {
     }
 
     const nav = await utilities.getNav();
-    const orders = await OrderModel.getAllOrders();
-
+    const orders = await OrderModel.getOrdersByAccountId(account_id);
+    console.log("Orders:", orders);
     res.render("order/order-history", {
       title: "My Orders",
       nav,
@@ -102,8 +104,6 @@ const showOrderHistory = async (req, res) => {
     res.status(500).send("Unable to load order history");
   }
 };
-
-
 
 module.exports = {
   showOrderForm,
