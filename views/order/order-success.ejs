@@ -1,7 +1,14 @@
 <title>Order Confirmation</title>
 
 <div class="order-success">
-    <h2>Order Successful!</h2>
-    <p>Order ID: <%= order.order_id %></p>
-    <p>Total Price: $<%= order.total_price %></p>
-  </div>
+  <h2>Order Successful!</h2>
+
+  <% if (order) { %>
+    <p><strong>Order ID:</strong> <%= order.order_id %></p>
+    <p><strong>Total Price:</strong> $<%= order.total_price %></p>
+    <p><strong>Quantity:</strong> <%= order.quantity %></p>
+    <p><strong>Vehicle ID:</strong> <%= order.inv_id %></p>
+  <% } else { %>
+    <p>⚠️ Order details are not available. Please check your account orders.</p>
+  <% } %>
+</div>
