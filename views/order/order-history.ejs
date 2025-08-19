@@ -1,0 +1,32 @@
+<title>My Orders</title>
+
+<div class="order-history">
+  <h2>Order History</h2>
+
+  <% if (orders && orders.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Vehicle</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+          <th>Order Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orders.forEach(order => { %>
+          <tr>
+            <td><%= order.order_id %></td>
+            <td><%= order.inv_make %> <%= order.inv_model %> (<%= order.inv_year %>)</td>
+            <td><%= order.quantity %></td>
+            <td>$<%= order.total_price %></td>
+            <td><%= new Date(order.order_date).toLocaleString() %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>You have no past orders.</p>
+  <% } %>
+</div>

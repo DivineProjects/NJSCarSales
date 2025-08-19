@@ -82,7 +82,31 @@ const placeOrder = async (req, res) => {
   }
 };
 
+const showOrderHistory = async (req, res) => {
+  try {
+    const account_id = req.session.account_id; // assuming session stores logged-in user id
+    if (!account_id) {
+      return res.redirect("/account/login"); // 
+    }
+
+    const nav = await utilities.getNav();
+    const orders = await OrderModel.getOrdersByAccountId(account_id);
+
+    res.render("order/order-history", {
+      title: "My Orders",
+      nav,
+      orders
+    });
+  } catch (err) {
+    console.error("Order history error:", err);
+    res.status(500).send("Unable to load order history");
+  }
+};
+
+
+
 module.exports = {
   showOrderForm,
   placeOrder,
+  showOrderHistory
 };

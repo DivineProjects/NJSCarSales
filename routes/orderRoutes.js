@@ -10,4 +10,6 @@ router.post('/',
     orderController.placeOrder
   )
 
+router.get("/history", orderController.showOrderHistory);
+
 module.exports = router;
