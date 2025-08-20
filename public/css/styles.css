@@ -105,8 +105,8 @@ header {
 
 .... Start NAVIGATION bar*/
 nav {
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.2rem;
   color: var(--secondary-text-color);
 }
 nav ul {
@@ -119,12 +119,12 @@ nav li {
   width: 100%;
   cursor: pointer;
   text-align: center;
-  margin: 1.5% 2%;
-  padding: 1% 0;
+  margin: 0.5rem 0.2rem;
+  padding: 0.5rem 0;
 }
 nav li:hover{
   transform: scale(1.1);
-  border-bottom: 2px solid var(--primary-text-color);
+  border-bottom: 1px solid var(--primary-text-color);
   color: var(--gold);
   transition: all 0.3s ease;
 
@@ -733,28 +733,124 @@ form input.submitBtn {
   color: #d9534f;
   text-align: center;
 }
-
+/* =====================================
+   Order Success Message
+   ===================================== */
 .order-success {
   max-width: 500px;
-  margin: 50px auto;
-  padding: 2rem;
+  margin: 2px auto;
+  padding: 0.2rem;
   border: 2px solid #4CAF50;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #f0fff4;
   color: #2e7d32;
   font-family: Arial, sans-serif;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.order-success h2 {
-  color: #388e3c;
-  margin-bottom: 1rem;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
 .order-success p {
   margin: 0.5rem 0;
-  font-size: 1.1rem;
+}
+
+/* =====================================
+   Order History Table
+   ===================================== */
+.order-history {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+}
+
+.order-history h2 {
+  text-align: center;
+  color: #003366; /* deep blue */
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.order-history table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.order-history th,
+.order-history td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.order-history thead {
+  background-color: #003366; /* deep blue */
+  color: #fff;
+}
+
+.order-history tbody tr {
+  background-color: #f9f9f9;
+  transition: background-color 0.2s ease;
+}
+
+.order-history tbody tr:nth-child(even) {
+  background-color: #e9ecef; /* alternating row color */
+}
+
+.order-history tbody tr:hover {
+  background-color: #d6e4f0;
+}
+
+.order-history td {
+  color: #333;
+}
+
+.order-history p {
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  margin-top: 15px;
+}
+
+/* =====================================
+   Responsive Styles
+   ===================================== */
+@media (max-width: 768px) {
+  .order-history table,
+  .order-history thead,
+  .order-history tbody,
+  .order-history th,
+  .order-history td,
+  .order-history tr {
+    display: block;
+    width: 100%;
+  }
+
+  .order-history thead {
+    display: none;
+  }
+
+  .order-history tbody tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+
+  .order-history tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .order-history tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #003366;
+  }
 }
 
 

@@ -96,9 +96,10 @@ async function accountLogin(req, res) {
   let nav = await utilities.getNav()
   const { account_email, account_password } = req.body
   const accountData = await accountModel.getAccountByEmail(account_email)
-  if (!accountData) {
-    req.flash("notice", "Please check your credentials and try again.")
-    res.status(400).render("account/login", {
+    if (!accountData) {
+      req.flash("notice", "Please check your credentials and try again.")
+      res.status(400).render("account/login", {
+
       title: "Login",
       nav,
       errors: null,
@@ -109,17 +110,23 @@ async function accountLogin(req, res) {
   try {
     if (await bcrypt.compare(account_password, accountData.account_password)) {
       delete accountData.account_password
+      // ✅ store session user
+      req.session.user = {
+        id: accountData.account_id,
+        firstName: accountData.account_firstname,
+        email: accountData.account_email,
+      }
       const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
       if(process.env.NODE_ENV === 'development') {
         res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
       } else {
         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
       }
-      return res.redirect("/account/")
+      return res.redirect("/")
     }
     else {
       req.flash("message notice", "Please check your credentials and try again.")
-      res.status(400).render("account/login", {
+      res.status(400).render("/", {
         title: "Login",
         nav,
         errors: null,
@@ -142,5 +149,23 @@ async function buildManagement(req, res, next) {
     errors: null,
   })
 }
-  
-  module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement }
+
+/* ****************************************
+ *  Process logout request
+ * ************************************ */
+function accountLogout(req, res) {
+  // Destroy the session
+  req.session.destroy(err => {
+    if (err) {
+      console.error("Logout error:", err)
+      // If error occurs, redirect anyway
+      return res.redirect("/")
+    }
+    // Clear the cookie
+    res.clearCookie("connect.sid") // default cookie name for express-session
+    // Redirect to home or login page
+    res.redirect("/")
+  })
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement, accountLogout  }

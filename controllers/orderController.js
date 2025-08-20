@@ -93,7 +93,6 @@ const showOrderHistory = async (req, res) => {
 
     const nav = await utilities.getNav();
     const orders = await OrderModel.getOrdersByAccountId(account_id);
-    console.log("Orders:", orders);
     res.render("order/order-history", {
       title: "My Orders",
       nav,
