@@ -10,7 +10,7 @@ const Util = {}
 Util.getNav = async function (req, res, next) {
     let data = await invModel.getClassification()
     let list = "<ul>"
-    list += '<li><a href="/" title="Home page">Home</a></li>'
+    list += '<li><a href="/inv" title="Inventory management page">Inventory</a></li>'
     data.rows.forEach((row)=> {
         list += "<li>"
         list += 
@@ -51,7 +51,12 @@ Util.buildClassificationGrid = async function(data){
         grid += '<span>$' 
         + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
         grid += '</div>'
+        // Buttons section
+        grid += '<div class="actions">'
         grid += `<a href="/order/${vehicle.inv_id}" class="btn btn-order">Place Your Order</a>`
+        grid += `<a href="../../inv/detail/${vehicle.inv_id}" class="btn btn-view">Details</a>`
+        grid += '</div>'
+
         grid += '</li>'
         
       })

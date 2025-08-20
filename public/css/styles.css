@@ -2,6 +2,12 @@
   --font-body: Arial, Helvetica, sans-serif;
   --font-headline: "Arial Narrow Bold", sans-serif;
   /* colors */
+  /* Brand colors */
+  --deep-blue: #003366;   /* trust and reliability */
+  --gold: #ffd700;        /* luxury and wealth */
+  --white: #ffffff;
+  --accent-gray: #333333;
+  
 
   --deep-blue: #003366; /* Primary color - trust and reliability */
   --gold: #ffd700; /* Accent color - luxury and wealth */
@@ -16,6 +22,11 @@
   /* Background Colors */
   --bg-color: var(--white); /* Overall background color */
   --bg-header-color: var(--deep-blue); /* Header background color */
+  /* Buttons */
+  --btn-bg: var(--gold);
+  --btn-text: var(--deep-blue);
+
+
 
   /* Text Colors */
   --text-color: var(--white); /* Primary text color */
@@ -239,52 +250,65 @@ main {
 
 /* Styling for each vehicle item */
 #inv-display li {
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 280px;              /* Set a base width for each item */
   max-width: 100%;
 }
 
 /* Hover effect for each vehicle */
 #inv-display li:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
 }
 
 /* Styling for vehicle image */
 #inv-display li img {
+  display: block;
   width: 100%;
   height: 200px;
   object-fit: cover; /* Ensure the image fits well */
   /* border-bottom: 1px solid #ddd; */
 }
 
-/* Container for vehicle name and price */
-.namePrice {
-  padding: 15px;
+
+/* Vehicle name and price container */
+#inv-display .namePrice {
+  padding: 1rem;
   text-align: center;
 }
 
-/* Vehicle name styling */
-.namePrice h2 {
-  font-size: 1.2em;
-  margin: 0;
-  font-weight: bold;
+#inv-display h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  line-height: 1.4;
 }
 
-/* Vehicle price styling */
-.namePrice span {
-  font-size: 1.4em;
-  font-weight:lighter;
+#inv-display h2 a {
+  text-decoration: none;
+  color: #003366; /* deep blue */
+}
+
+#inv-display h2 a:hover {
+  color: #0055aa;
+}
+
+
+#inv-display span {
   display: block;
-  margin-top: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #222;
+  margin-top: 0.5rem;
 }
-
-
 
 /* Grid Container for the vehicle image and details */
 .vehicle-grid {
@@ -603,41 +627,71 @@ form input.submitBtn {
   /* text-decoration: underline; */
 }
 
+/* ===============================
+   Buttons (consistent theme)
+================================ */
 .btn {
   display: inline-block;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
   font-weight: 600;
   text-align: center;
+  border-radius: 8px;
   text-decoration: none;
-  border-radius: 0.375rem;
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
+/* Actions container */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
 .btn-order {
-  background-color: #2563eb; /* Blue-600 */
-  color: white;
-  border: 2px solid #2563eb;
-  margin-top: 1rem;
+  display: block;
+  margin: 1rem auto;
+  background: #ffd700; /* gold accent */
+  color: #003366; /* deep blue text */
 }
 
 .btn-order:hover {
-  background-color: #1d4ed8; /* Blue-700 */
-  border-color: #1d4ed8;
+  background: #e6c200;
   transform: translateY(-2px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
-              0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.btn-order:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+/* Actions container */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  align-items: center; 
 }
 
-.btn-order:active {
-  transform: translateY(0);
-  background-color: #1e40af; /* Blue-800 */
+
+/* View Details Button */
+.btn-view {
+  /* background:  */
+  font-weight: 100;
+  color: var(--deep-blue);
+  text-align: center;
+  border: 1px solid var(--deep-blue);
+}
+
+.btn-view:hover {
+  background: var(--deep-blue);
+  color: var(--white);
+  border-color: #0055aa;
+  transform: translateY(-2px);
+}
+
+/* Mobile responsive wrap */
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column;
+  }
 }
 
 
@@ -674,14 +728,6 @@ form input.submitBtn {
   border-radius: 4px;
 }
 
-.btn-order {
-  background: #0066cc;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
 
 .notice {
   color: #d9534f;
@@ -710,103 +756,6 @@ form input.submitBtn {
   margin: 0.5rem 0;
   font-size: 1.1rem;
 }
-
-/* Order History Container */
-.order-history {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 20px;
-  background-color: rgba(0, 51, 102, 0.85); /* using --deep-blue with opacity */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  font-family: var(--font-body);
-  color: var(--white);
-}
-
-/* Heading */
-.order-history h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: var(--gold);
-  font-family: var(--font-headline);
-  font-size: var(--font-size-large);
-}
-
-/* Table Styling */
-.order-history table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 10px;
-}
-
-.order-history th, 
-.order-history td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.3); /* light gold border */
-}
-
-.order-history th {
-  background-color: var(--gold);
-  color: var(--deep-blue);
-  font-weight: bold;
-}
-
-.order-history tr:nth-child(even) {
-  background-color: rgba(255, 215, 0, 0.1); /* subtle striped effect */
-}
-
-.order-history tr:hover {
-  background-color: rgba(0, 128, 0, 0.2); /* accent-success hover effect */
-  transition: background-color 0.3s ease;
-}
-
-/* No orders message */
-.order-history p {
-  text-align: center;
-  font-size: var(--font-size-base);
-  color: var(--accent-success);
-  margin-top: 20px;
-}
-
-/* Responsive Table */
-@media (max-width: 768px) {
-  .order-history table, 
-  .order-history thead, 
-  .order-history tbody, 
-  .order-history th, 
-  .order-history td, 
-  .order-history tr {
-    display: block;
-  }
-
-  .order-history tr {
-    margin-bottom: 15px;
-    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
-  }
-
-  .order-history td {
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
-    border: none;
-  }
-
-  .order-history td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 15px;
-    width: calc(50% - 30px);
-    text-align: left;
-    font-weight: bold;
-    color: var(--gold);
-  }
-
-  .order-history th {
-    display: none;
-  }
-}
-
 
 
 @media (min-width: 780px){
@@ -846,9 +795,6 @@ form input.submitBtn {
     font-size: 14px;
   }
 }
-
-
-
 
 
 @media (max-width: 480px) {
